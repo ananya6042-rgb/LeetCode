@@ -1,0 +1,24 @@
+bool isCovered(int** ranges, int rangeSize, int* rangeColSize, int left, int right) {
+    int watch[52] = {0};
+
+    for (int i = 0; i < rangeSize; i++) {
+        int start = ranges[i][0];
+        int end = ranges[i][1];
+        watch[start]++;
+        if (end + 1 < 52) {
+            watch[end + 1]--;
+        }
+    }
+
+    for (int i = 1; i < 52; i++) {
+        watch[i] += watch[i - 1];
+    }
+
+    for (int i = left; i <= right; i++) {
+        if (watch[i] <= 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
