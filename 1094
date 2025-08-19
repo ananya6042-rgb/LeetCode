@@ -1,0 +1,22 @@
+bool carPooling(int** trips, int tripsSize, int* tripsColSize, int capacity) {
+    int arr[1001] = {0};
+
+    for (int i = 0; i < tripsSize; i++) {
+        int numPassengers = trips[i][0];
+        int from = trips[i][1];
+        int to = trips[i][2];
+        
+        arr[from] += numPassengers; 
+        arr[to] -= numPassengers;  
+    }
+
+    int currentLoad = 0;
+    for (int i = 0; i <= 1000; i++) {
+        currentLoad += arr[i];
+        if (currentLoad > capacity) {
+            return false;
+        }
+    }
+
+    return true;
+}
