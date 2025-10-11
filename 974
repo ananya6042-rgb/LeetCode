@@ -1,0 +1,19 @@
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& a, int k) {
+        unordered_map<int,int> m;
+        m[0]=1;
+        int s=0,c=0;
+        for(int x:a){
+            s+=x;
+            int r=((s%k)+k)%k;
+            c+=m[r];
+            m[r]++;
+        }
+        return c;
+    }
+};
